@@ -13,3 +13,11 @@ cursor-init = "cursor_init.cli:app"
 
 [tool.setuptools.packages.find]
 include = ["cursor_init"]
+recursive-include templates *
+prune .cursorrules
+prune docs
+prune tests
+prune .git
+prune .venv
+exclude *.pyc
+exclude __pycache__/
