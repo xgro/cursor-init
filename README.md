@@ -1,12 +1,12 @@
 # cursor-init
 
-프로젝트 규칙/온톨로지/문서 템플릿을 손쉽게 세팅하는 CLI 도구
+프로젝트 규칙/문서 템플릿을 손쉽게 세팅하는 CLI 도구 (PyPI 배포용)
 
 ---
 
 ## ✨ 주요 기능
 
-- `.cursorrules`, rules, docs, 온톨로지 등 템플릿 파일 일괄 복사 및 초기화
+- `.cursorrules`, rules, docs 등 실무 규칙/문서 템플릿 일괄 복사 및 초기화
 - 실무 규칙/자동화/상호 참조 구조를 표준화
 - 신규 프로젝트, 팀 온보딩, 문서 일관성 유지에 최적화
 
@@ -15,8 +15,33 @@
 ## 📦 설치
 
 ```bash
-pip install -e .
+uvx cursor-init sync
 ```
+
+---
+
+## 🗂️ 템플릿/문서 구조
+
+```
+src/templates/profile/
+├── default/
+│   ├── .cursorrules
+│   ├── .cursor/
+│   │   ├── mcp.json
+│   │   └── rules/
+│   └── .cursor-init/
+│       └── docs/
+└── ... (프로필별 디렉토리)
+
+.cursor-init/
+├── docs/           # 공식 기술문서/가이드/프로세스 관리 경로
+└── profiles/       # 프로필별 문서/규칙/스냅샷 관리
+```
+
+- `.cursorrules`: 프로젝트 전체 규칙 정의
+- `rules/`: 각종 실무/자동화 규칙(mdc)
+- `docs/`: 공식 기술문서/가이드/프로세스
+- `profiles/`: 프로필별 문서/규칙/스냅샷 관리
 
 ---
 
@@ -25,10 +50,8 @@ pip install -e .
 ### 템플릿 초기화
 
 ```bash
-cursor-init
+cursor-init docs sync
 ```
-
-- `-f` 또는 `--force` 옵션: 기존 파일/디렉토리 덮어쓰기
 
 ### 도움말
 
@@ -38,20 +61,22 @@ cursor-init --help
 
 ---
 
-## 🗂️ 템플릿 구조
+## 💡 실무 적용 예시
 
-```
-templates/
-├── .cursorrules
-├── rules/
-├── docs/
-└── ontology/
-```
+1. 템플릿/문서 구조 동기화
 
-- `.cursorrules`: 프로젝트 전체 규칙 정의
-- `rules/`: 각종 실무/자동화 규칙(mdc)
-- `docs/`: 문서 템플릿
-- `ontology/`: 온톨로지/의사결정 템플릿
+   ```bash
+   cursor-init docs sync
+   ```
+
+2. 요구사항 정의 및 agent 활용
+   ```bash
+   # 예시: 신규 회원가입 기능 설계 요구사항을 agent에게 입력
+   agent "신규 회원가입 기능 설계: 이메일 인증, 비밀번호 정책, API 명세를 포함. 요구사항에 맞게 문서를 업데이트 해주세요."
+   ```
+
+- agent를 활용하면 요구사항 분석, 시스템 설계, 문서화, 체크리스트 관리 등 실무 전 과정을 일관되게 자동화할 수 있습니다.
+- 팀/고객/상황별로 프로필을 분리해 다양한 규칙/문서 세트를 손쉽게 적용하세요.
 
 ---
 
@@ -69,9 +94,9 @@ templates/
 ## 📝 참고
 
 - pyproject.toml의 `[project.scripts]`로 CLI 명령어 등록
-- 템플릿 경로는 프로젝트 루트의 `templates/` 기준
-- 자세한 규칙은 `.cursorrules`, `docs/`, `ontology/` 참고
-- 온톨로지/문서화/자동화 규칙은 `.cursor/ontology/guide.md`에서 확인
+- 템플릿 경로는 `src/templates/profile/` 기준
+- 공식 문서/구조/규칙은 `.cursor-init/docs/`, `.cursor-init/profiles/` 참고
+- 자세한 구조/실무 규칙은 `.cursor-init/docs/` 내 문서 참조
 
 ---
 

@@ -1,10 +1,12 @@
 from pathlib import Path
 from src.services.common.file_utils import list_md_files
+from datetime import datetime
+import shutil
 
 
 class DocsService:
     def __init__(self):
-        self.docs_dir = Path(".cursor/docs")
+        self.root_dir = Path(__file__).parent.parent.parent.parent
         self.templates_dir = Path("src/templates/profile")
 
     def list_profiles(self):
@@ -17,15 +19,15 @@ class DocsService:
         """
         return [d.name for d in self.templates_dir.glob("*") if d.is_dir()]
 
-    def list_docs(self):
-        """프로필에 따라 문서 목록을 출력합니다."""
+    # def list_docs(self):
+    #     """프로필에 따라 문서 목록을 출력합니다."""
 
-        files = list_md_files(self.docs_dir)
-        if not files:
-            print("[경고] .cursor/docs/ 디렉토리가 없거나 md 파일이 없습니다.")
-            return
-        for file in files:
-            print(f"- {file.name}")
+    #     files = list_md_files(self.root_dir / "docs")
+    #     if not files:
+    #         print("[경고] .cursor/docs/ 디렉토리가 없거나 md 파일이 없습니다.")
+    #         return
+    #     for file in files:
+    #         print(f"- {file.name}")
 
     def pull(self, profile: str):
         """문서 목록을 동기화합니다.
@@ -52,10 +54,25 @@ class DocsService:
     def sync(self):
         """문서 목록을 동기화합니다.
 
-        - 프로필을 선택할 수 없습니다.
-        - .templates/profile/default 프로필의 문서를 .cursor-init/profile/default 에 복사합니다.
-        - 프로젝트의 루트 경로에 default 폴더내의 모든 문서를 복사합니다.
+        # TODO: sync는 프로필을 선택할 수 없습니다. 추후 프로필을 선택할 수 있도록 수정
+        # .templates/profile/default 프로필의 문서를 .cursor-init/profile/default 에 복사합니다.
+        # 프로젝트의 루트 경로에 default 폴더내의 모든 문서를 복사합니다.
+        # 프로젝트에 이미 파일이 존재하면, .cursor-init/profile/snap-YYYYMMDD 폴더를 생성하고 백업을 진행합니다.
 
         """
-        print(f"[완료] 초기 프로필 문서가 생성되었습니다.")
-        pass
+        print("문서 동기화를 진행합니다.")
+
+        def copy_default_profile():
+            """default 프로필을 복사합니다. 디렉토리 구조를 유지하여 복사합니다."""
+            # default 프로필 경로
+            src_dir = self.templates_dir / "default"
+
+            # 복사할 경로(임시)
+            dst_dir = self.root_dir
+
+            # 파일이 이미 존재하면, 덮어쓰기로 복사합니다.
+            shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+
+        copy_default_profile()
+
+        print("문서 동기화가 완료되었습니다.")
