@@ -2,6 +2,7 @@ from pathlib import Path
 from src.services.common.file_utils import list_md_files
 from datetime import datetime
 import shutil
+import importlib.resources
 
 
 class DocsService:
@@ -64,14 +65,15 @@ class DocsService:
 
         def copy_default_profile():
             """default 프로필을 복사합니다. 디렉토리 구조를 유지하여 복사합니다."""
-            # default 프로필 경로
-            src_dir = self.templates_dir / "default"
+            # 템플릿은 패키지 내에 있는 파일을 사용합니다.
+            with importlib.resources.path(
+                "cursor_init.templates.profile", "default"
+            ) as src_dir:
+                # 복사할 경로(프로젝트 루트)
+                dst_dir = self.root_dir
 
-            # 복사할 경로(임시)
-            dst_dir = self.root_dir
-
-            # 파일이 이미 존재하면, 덮어쓰기로 복사합니다.
-            shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+                # 파일이 이미 존재하면, 덮어쓰기로 복사합니다.
+                shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
 
         copy_default_profile()
 
