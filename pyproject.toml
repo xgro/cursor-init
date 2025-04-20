@@ -1,0 +1,9 @@
+[project]
+name = "cursor-init"
+version = "0.1.0"
+description = "프로젝트 규칙 파일을 간편하게 세팅하는 CLI"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "typer[all]",
+]

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# uv
+.uv/
+.venv/
+venv/
+
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# 기타
+*.log
