@@ -5,19 +5,27 @@ description = "프로젝트 규칙 파일을 간편하게 세팅하는 CLI"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "typer[all]",
+    "requests>=2.32.3",
+    "typer",
+    "types-requests>=2.32.0.20250328",
 ]
 
+
+[dependency-groups]
+dev = [
+    "build>=1.2.2.post1",
+    "pytest>=8.3.5",
+    "twine>=6.1.0",
+]
+
+
+
 [project.scripts]
-cursor-init = "cursor_init.cli:app"
+cursor-init = "src.main:app"
 
 [tool.setuptools.packages.find]
-include = ["cursor_init"]
-recursive-include templates *
-prune .cursorrules
-prune docs
-prune tests
-prune .git
-prune .venv
-exclude *.pyc
-exclude __pycache__/
+include = ["src"]
+
+[tool.uv]
+package = true
+
