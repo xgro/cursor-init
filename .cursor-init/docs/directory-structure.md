@@ -29,7 +29,7 @@
 
 ```
 프로젝트 루트/
-├── src/
+├── cursor_init/
 │   ├── main.py
 │   ├── module1/
 │   └── ...
@@ -47,7 +47,7 @@
 
 ## 5. 디렉토리 및 파일 상세 설명
 
-- `src/` : 서비스/애플리케이션 소스 코드
+- `cursor_init/` : 프로젝트 관리 코드
 - `tests/` : 테스트 코드
 - `README.md` : 프로젝트 설명 및 사용법
 - `requirements.txt` : Python 패키지 의존성 명세
@@ -65,5 +65,5 @@
 
 ## 7. 서비스 구현 현황 (2025-04-21 기준)
 
-- `src/services/docs/service.py`에서 프로필 기반 템플릿(`src/templates/profile/`)과 공식 관리 경로(`.cursor-init/`) 연동 구현 중
+- `cursor_init/services/docs/service.py`에서 프로필 기반 템플릿(`cursor_init/templates/profile/`)과 공식 관리 경로(`.cursor-init/`) 연동 구현 중
 - 향후 문서 메타데이터(created_at, update_at) 자동화 및 실무 규칙 연동 예정

@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.services.common.file_utils import list_md_files
+from cursor_init.services.common.file_utils import list_md_files
 from datetime import datetime
 import shutil
 import importlib.resources
@@ -8,7 +8,6 @@ import importlib.resources
 class DocsService:
     def __init__(self):
         self.root_dir = Path(__file__).parent.parent.parent.parent
-        self.templates_dir = Path("src/templates/profile")
 
     def list_profiles(self):
         """프로필 목록을 출력합니다.
@@ -18,7 +17,10 @@ class DocsService:
         Returns:
             list: 프로필 목록
         """
-        return [d.name for d in self.templates_dir.glob("*") if d.is_dir()]
+        with importlib.resources.path(
+            "cursor_init.templates.profile", "default"
+        ) as src_dir:
+            return [d.name for d in src_dir.glob("*") if d.is_dir()]
 
     # def list_docs(self):
     #     """프로필에 따라 문서 목록을 출력합니다."""

@@ -53,8 +53,8 @@
 
 ### 동기화 워크플로우
 
-1. src/templates/profile/default/의 템플릿/규칙/문서 구조를 준비
-2. `uvx cursor-init sync` 실행 → .cursor-init/profiles/default/로 복사
+1. cursor_init/templates/profile/default/의 템플릿/규칙/문서 구조를 준비
+2. `uvx cursor-init docs sync` 실행 → .cursor-init/profiles/default/로 복사
 3. 필요시 force 옵션으로 기존 파일 덮어쓰기
 
 ## 4. 자동화 및 실무 적용
@@ -68,7 +68,7 @@
 
 1. 템플릿/문서 구조 동기화
    ```bash
-   uvx cursor-init sync
+   uvx cursor-init docs sync
    ```
 2. 요구사항 정의 및 agent 활용
    ```bash
@@ -81,7 +81,7 @@
 
 ## 5. 서비스 구현 현황
 
-- 위치: `src/services/docs/service.py`
+- 위치: `cursor_init/services/docs/service.py`
 - 주요 기능:
   - `list_profiles()`: 템플릿 디렉토리 내 프로필 목록 동적 추출
   - `pull(profile)`: 지정 프로필의 문서 동기화(구현 중, 메시지 출력)
@@ -92,7 +92,7 @@
   - pull/push의 실제 파일 복사 및 메타데이터 관리 로직 구현 예정
   - 프로필별 문서/규칙 동기화 고도화
 - Python 표준 라이브러리(Path, shutil 등) 기반 파일/디렉토리 조작
-- 프로필 기반 템플릿 구조(`src/templates/profile/`)와 공식 관리 경로(`.cursor-init/`) 연동
+- 프로필 기반 템플릿 구조(`cursor_init/templates/profile/`)와 공식 관리 경로(`.cursor-init/`) 연동
 - 향후 mcp-server-time 연동, created_at/update_at 자동화, 실무 규칙 준수 예정
 
 ## 6. 확장성 및 발전 방향

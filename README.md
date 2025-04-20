@@ -12,18 +12,10 @@
 
 ---
 
-## 📦 설치
-
-```bash
-uvx cursor-init sync
-```
-
----
-
 ## 🗂️ 템플릿/문서 구조
 
 ```
-src/templates/profile/
+cursor_init/templates/profile/
 ├── default/
 │   ├── .cursorrules
 │   ├── .cursor/
@@ -94,7 +86,7 @@ cursor-init --help
 ## 📝 참고
 
 - pyproject.toml의 `[project.scripts]`로 CLI 명령어 등록
-- 템플릿 경로는 `src/templates/profile/` 기준
+- 템플릿 경로는 `cursor_init/templates/profile/` 기준
 - 공식 문서/구조/규칙은 `.cursor-init/docs/`, `.cursor-init/profiles/` 참고
 - 자세한 구조/실무 규칙은 `.cursor-init/docs/` 내 문서 참조
 
