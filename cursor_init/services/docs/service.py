@@ -1,13 +1,11 @@
 from pathlib import Path
-from cursor_init.services.common.file_utils import list_md_files
-from datetime import datetime
 import shutil
-import importlib.resources
+from importlib import resources
 
 
 class DocsService:
     def __init__(self):
-        self.root_dir = Path(__file__).parent.parent.parent.parent
+        pass
 
     def list_profiles(self):
         """프로필 목록을 출력합니다.
@@ -17,10 +15,10 @@ class DocsService:
         Returns:
             list: 프로필 목록
         """
-        with importlib.resources.path(
-            "cursor_init.templates.profile", "default"
-        ) as src_dir:
-            return [d.name for d in src_dir.glob("*") if d.is_dir()]
+        # with importlib.resources.path(
+        #     "cursor_init.templates.profile", "default"
+        # ) as src_dir:
+        #     return [d.name for d in src_dir.glob("*") if d.is_dir()]
 
     # def list_docs(self):
     #     """프로필에 따라 문서 목록을 출력합니다."""
@@ -68,14 +66,24 @@ class DocsService:
         def copy_default_profile():
             """default 프로필을 복사합니다. 디렉토리 구조를 유지하여 복사합니다."""
             # 템플릿은 패키지 내에 있는 파일을 사용합니다.
-            with importlib.resources.path(
-                "cursor_init.templates.profile", "default"
-            ) as src_dir:
-                # 복사할 경로(프로젝트 루트)
-                dst_dir = self.root_dir
+            package = "cursor_init.templates.profile"
+            default_dir_ref = resources.files(package).joinpath("default")
 
-                # 파일이 이미 존재하면, 덮어쓰기로 복사합니다.
-                shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+            # wheel/zip 환경일 수도 있으므로 as_file()로 실제 디스크 경로 확보
+            with resources.as_file(default_dir_ref) as src_dir:
+                dst_dir = Path.cwd()
+
+                # __init__.py 제외하고 복사
+                for item in src_dir.iterdir():
+                    if item.name == "__init__.py":
+                        continue
+
+                    target = dst_dir / item.name
+                    if item.is_dir():
+                        shutil.copytree(item, target, dirs_exist_ok=True)
+                    else:
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(item, target)
 
         copy_default_profile()
 
