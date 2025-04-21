@@ -1,10 +1,4 @@
-<!-- 이 문서는 반드시 관련 온톨로지 문서와 상호 참조(related_ontology, 링크 등)를 남겨야 합니다. 문서 작업 시 mcp-server-time을 호출하여 created_at, updated_at을 최신화하세요. -->
-
 # 프로젝트 워크플로우
-
-> 작성자: <!-- 여기에 이름을 입력하세요 -->
-> 작성일: <!-- YYYY-MM-DD 형식으로 입력하세요 -->
-> 버전: 1.0
 
 ## 1. 작업 Flow 다이어그램
 
@@ -55,7 +49,7 @@ graph TD
 - Task 문서 승인 전 코드 작성 금지
 - 모든 변경사항 문서화 필수
 - 각 개발 단계는 사용자 승인 필수
-- .cursor-init/docs/tech-stack.md, .cursor-init/docs/directory-files.md 동기화 유지
+- .cursor-init/docs/tech-stack.md, .cursor-init/docs/directory-structure.md 동기화 유지
 -->
 
 ## 6. 참고 자료
@@ -89,7 +83,7 @@ graph TD
         DevNote["참고:
         - .cursor/rules/development.mdc
         - .cursor-init/docs/tech-stack.md
-        - .cursor-init/docs/directory-files.md"]
+        - .cursor-init/docs/directory-structure.md"]
         Code -.-> DevNote
     end
 
@@ -103,7 +97,7 @@ graph TD
         - .cursor/rules/tech-stack.mdc"
         업데이트:
         - .cursor-init/docs/tech-stack.md
-        - .cursor-init/docs/directory-files.md
+        - .cursor-init/docs/directory-structure.md
         ]
         FinalDoc -.-> CompNote
     end
@@ -123,7 +117,7 @@ graph LR
     end
 
     subgraph Docs[문서 동기화]
-        DF[directory-files.md]
+        DF[directory-structure.md]
         TS[tech-stack.md]
     end
 
@@ -183,5 +177,5 @@ graph LR
    - 승인 없이 다음 단계 진행 금지
 
 3. 문서 동기화
-   - `.cursor-init/docs/directory-files.md` 구조 정보 유지
+   - `.cursor-init/docs/directory-structure.md` 구조 정보 유지
    - `.cursor-init/docs/tech-stack.md` 기술 스택 정보 유지
